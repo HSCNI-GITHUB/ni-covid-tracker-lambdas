@@ -1,0 +1,29 @@
+{
+  "name": "ni-contact-tracing-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lambda functions for NI contact tracing",
+  "main": "stats.js",
+  "scripts": {
+    "artifact:create": "zip -r lambdas.zip *",
+    "stats": "env-cmd -f .env node stats.js"
+  },
+  "dependencies": {
+    "@nearform/sql": "^1.4.0",
+    "aws-sdk": "^2.646.0",
+    "notifications-node-client": "^4.8.0",
+    "pg": "^7.18.2",
+    "pg-range": "^1.1.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": "prettier-config-standard"
+}
