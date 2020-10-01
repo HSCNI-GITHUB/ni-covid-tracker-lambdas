@@ -1,3 +1,4 @@
+const AWS = require('aws-sdk')
 const { NotifyClient } = require('notifications-node-client')
 const { getDatabase, getSmsConfig, insertMetric, runIfDev } = require('./utils')
 
@@ -5,6 +6,7 @@ exports.handler = async function (event) {
   const { apiKey, queueUrl, smsSender, smsTemplate } = await getSmsConfig()
   const client = new NotifyClient(apiKey)
   const db = await getDatabase()
+  const sqs = new AWS.SQS({ region: process.env.AWS_REGION })
 
   for (const record of event.Records) {
     const { code, mobile, onsetDate, testDate, jobId } = JSON.parse(record.body)
